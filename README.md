@@ -1,128 +1,137 @@
-Banknote Authentication using KNN & SVM
-Project Overview
+💵 Banknote Authentication using KNN & SVM
 
-This project focuses on classifying banknotes as authentic or fake using machine learning algorithms K-Nearest Neighbors (KNN) and Support Vector Machine (SVM). The aim is to provide a practical implementation to explore the effects of feature scaling, hyperparameters, and model evaluation on real-world numerical data.
+📌 Project Overview
 
-Dataset
+This project implements machine learning models to classify banknotes as authentic or fake using the Banknote Authentication dataset.
 
-Source: UCI Banknote Authentication Dataset
+Algorithms used: K-Nearest Neighbors (KNN) & Support Vector Machine (SVM)
 
-Description: The dataset contains 1,372 samples of banknotes with features extracted from wavelet-transformed images.
+Goal: Learn feature scaling, model training, evaluation, and hyperparameter tuning
 
-Features:
+Outcome: Compare model performance and understand how ML distinguishes fake vs real banknotes
 
-Variance – spread of pixel intensity in wavelet-transformed image
+🗂 Dataset Description
+Feature	Type	Description
+variance	Numeric	Spread of pixel intensity after wavelet transform
+skewness	Numeric	Asymmetry of pixel intensity distribution
+kurtosis	Numeric	“Peakedness” of the pixel intensity distribution
+entropy	Numeric	Randomness / complexity of texture
+class	Binary	0: Fake, 1: Authentic
 
-Skewness – asymmetry of pixel intensity distribution
+Samples: 1,372
 
-Kurtosis – “peakedness” of the pixel intensity distribution
+Source: [Banknote Authentication Dataset – UCI ML Repository](https://archive.ics.uci.edu/ml/datasets/banknote+authentication)
 
-Entropy – randomness/complexity of texture
 
-Target: class → 0: Fake, 1: Authentic
+Format: Text file, 4 features + 1 label per row
 
-Format: Text file with 4 numeric features and 1 label per row.
+🧹 Data Preprocessing
 
-Project Steps
+Feature Separation: Split into X (features) and y (target)
 
-Data Loading & Exploration
+Train/Test Split: 80% training, 20% testing
 
-Loaded dataset from text file.
+Feature Scaling: StandardScaler applied to normalize numeric features
 
-Checked dataset shape, head, and class distribution.
+⚠️ Note: Feature scaling is critical for KNN (distance-based) and SVM (margin-based) models.
 
-Data Preprocessing
+🔍 Exploratory Analysis
 
-Split dataset into features (X) and target (y).
+Class Distribution:
 
-Split data into training (80%) and testing (20%).
+Authentic (1): 762
+Fake (0): 610
 
-Applied standard scaling to numeric features for KNN & SVM.
 
-Model Training & Prediction
+Dataset is clean with no missing values; features are numeric and ready for ML algorithms
 
-KNN Classifier
+🤖 Modeling Approach
+1️⃣ KNN Classifier
 
-n_neighbors=5
+n_neighbors = 5
 
-Trained on scaled training data, predicted test labels
+Euclidean distance
 
-SVM Classifier
+Trained on scaled features
 
-kernel='linear'
+Predicted labels on test set
 
-Trained on scaled training data, predicted test labels
+2️⃣ SVM Classifier
 
-Evaluation Metrics
+Linear kernel (kernel='linear')
 
-Accuracy – overall correctness of predictions
+Trained on scaled features
 
-Confusion Matrix – detailed insight into misclassifications
+Predicted using decision scores for ROC-AUC
 
-Classification Report – precision, recall, F1-score
-
-ROC-AUC Score – area under ROC curve to evaluate classifier performance
-
-Visualization
-
-Confusion matrices visualized using heatmaps
-
-ROC curves to compare KNN and SVM performance
-
-Results
+📊 Results
 Model	Accuracy	ROC-AUC
 KNN (k=5)	99%	0.99
 SVM (Linear)	99%	1.00
 
-Both models performed exceptionally well due to the clean, well-structured dataset.
+Both models performed exceptionally well due to clear feature separation
 
-Slight differences observed in decision scores and misclassified samples.
+Minor differences observed in decision scores and misclassifications
 
-Learnings
+📈 Evaluation Metrics
 
-Feature Scaling: Critical for distance-based algorithms (KNN) and margin-based algorithms (SVM).
+Confusion Matrix – KNN
 
-KNN: Performance depends on k value and distance metric. Too small k may overfit; too large k may underfit.
+Confusion Matrix – SVM
 
-SVM: Linear kernel sufficient for this dataset; decision scores help compute ROC-AUC.
+Classification Report (SVM Example)
 
-Model Evaluation: Confusion matrices and ROC curves provide insights beyond simple accuracy.
+Metric	Fake (0)	Authentic (1)
+Precision	0.99	1.00
+Recall	0.99	0.99
+F1-score	0.99	0.99
+💡 Learnings
 
-Real-World Insight: Even a small set of engineered features (variance, skewness, kurtosis, entropy) can effectively distinguish real vs fake banknotes.
+Feature Scaling: Essential for KNN and SVM performance
 
-Next Steps / Extensions
+KNN: Performance depends on k and distance metric; overfitting/underfitting is visible with small/large k
 
-Experiment with different K values and distance metrics for KNN.
+SVM: Linear kernel sufficient for this dataset; decision scores help evaluate ROC-AUC
 
-Explore non-linear SVM kernels (RBF, polynomial) for more complex datasets.
+Model Evaluation: Confusion matrices and ROC curves provide insight beyond accuracy
 
-Implement cross-validation for robust evaluation.
+Feature Engineering: Even 4 engineered features (variance, skewness, kurtosis, entropy) are sufficient for highly accurate classification
 
-Deploy as a real-time prediction tool for banknote authentication with live inputs.
+🚀 Next Steps / Extensions
 
-How to Run
+Experiment with different K values and distance metrics in KNN
+
+Test non-linear kernels (RBF, polynomial) in SVM
+
+Implement cross-validation for robust evaluation
+
+Deploy a GUI to input banknote features and predict authenticity in real-time
+
+⚙ How to Run
 
 Clone the repository:
 
 git clone <repository-url>
 
 
-Install required libraries:
+Install dependencies:
 
 pip install pandas numpy scikit-learn matplotlib seaborn
 
 
-Place the dataset file data_banknote_authentication.txt in the same folder.
+Place the dataset data_banknote_authentication.txt in the same folder
 
-Run the notebook or Python script:
+Run the notebook/script:
 
 python banknote_authentication.py
 
 
-Visualizations and metrics will be displayed for KNN and SVM classifiers.
+Outputs: Accuracy, Confusion Matrices, Classification Reports, ROC curves
 
-References
+📚 References
 
-UCI Machine Learning Repository – Banknote Authentication Dataset
+## References
 
-Scikit-learn documentation – KNN & SVM
+[Banknote Authentication Dataset – UCI ML Repository](https://archive.ics.uci.edu/ml/datasets/banknote+authentication)  
+[Scikit-learn Documentation – KNN](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html)  
+[Scikit-learn Documentation – SVM](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html)  
